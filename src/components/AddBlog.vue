@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .add-blog
+  #add-blog
     h2 添加博客
     form(v-if='!submmited')
       label 博客标题
@@ -74,4 +74,44 @@ export default class ViewComponent extends Vue {
 </script>
 
 <style scoped lang="stylus">
+#add-blog *
+  box-sizing border-box
+#add-blog
+  margin 20px auto 
+  max-width 600px
+  padding 20px
+  label
+    display block
+    margin 20px 0 10px
+  input[type='text'],textarea,select
+    display block
+    width 100%
+    padding 8px
+  textarea
+    height 200px
+#checkbox 
+  label
+    display inline-block
+    margin-top 0
+  input
+    display inline-block
+    margin-top 0
+
+button 
+  display block
+  margin 20px 0
+  background crimson 
+  color #ffffff
+  border 0
+  padding 14px
+  border-radius 10px
+  font-size 18px
+  cursor pointer
+
+#preview
+  padding 10px 20px
+  border 1px dotted #cccccc
+  margin 30px 0
+  h3
+    margin-top 10px
 </style>
