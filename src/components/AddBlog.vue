@@ -54,19 +54,29 @@ export default class ViewComponent extends Vue {
   submmited = false
 
   /**method */
+  // post(){
+  //   // 需要翻墙用
+  //   // http://jsonplaceholder.typicode.com/
+  //   // http://jsonplaceholder.typicode.com/posts
+  //   (this.$http as any).post(
+  //     'http://jsonplaceholder.typicode.com/posts',
+  //     {
+  //       title:this.blog.title,
+  //       body:this.blog.content,
+  //       userId:1,
+  //     },
+  //   ).then((data:any)=>{
+  //     // console.log('data',data)
+  //     this.submmited = true
+  //   })
+  // }
+  
   post(){
-    // 需要翻墙用
-    // http://jsonplaceholder.typicode.com/
-    // http://jsonplaceholder.typicode.com/posts
     (this.$http as any).post(
-      'http://jsonplaceholder.typicode.com/posts',
-      {
-        title:this.blog.title,
-        body:this.blog.content,
-        userId:1,
-      },
+      'https://my-blog-demo-632c9.firebaseio.com/posts.json',
+      this.blog,
     ).then((data:any)=>{
-      // console.log('data',data)
+      console.log('data',data)
       this.submmited = true
     })
   }
