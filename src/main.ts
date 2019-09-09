@@ -7,6 +7,27 @@ import VueResource from "vue-resource";
 Vue.config.productionTip = false
 Vue.use(VueResource)
 
+// 自定义指令
+Vue.directive('rainbow',{
+  bind(el:any,binding:any,vnode:any){
+    el.style.color = '#' + Math.random().toString().slice(2,8);
+  }
+})
+Vue.directive('theme',{
+  bind(el:any,binding:any,vnode:any){
+    if(binding.value === 'wide'){
+      el.style.maxWidth = '1260px'
+    }else if(binding.value === 'narrow'){
+      el.style.maxWidth = '560px'
+    }
+
+    if(binding.arg === 'column'){
+      el.style.background = '#6677cc'
+      el.style.padding = '20px'
+    }
+  }
+})
+
 new Vue({
   router,
   store,
