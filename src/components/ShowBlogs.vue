@@ -1,7 +1,8 @@
 <template lang='pug'>
   #show-blogs(v-theme:column='"narrow"')
     h1 博客总览
-    .single-blog(v-for='item in blogs')
+    input(v-model='search' placeholder='搜索')
+    .single-blog(v-for='item in filteredBlogs')
       h2(v-rainbow) {{item.title | to-uppercase}}
       article {{item.body | snippet}}
 
@@ -15,6 +16,13 @@ import {Component,Vue,} from 'vue-property-decorator'
 export default class ViewComponent extends Vue {
   /**data */
   blogs = []
+  search = ''
+  /**computed */
+  get filteredBlogs() {
+    return this.blogs.filter((blog:any)=>{
+      return blog.title.match(this.search)
+    })
+  }
   
   /**life hook */
   created(){
