@@ -3,7 +3,8 @@
     h1 博客总览
     input(v-model='search' placeholder='搜索')
     .single-blog(v-for='item in filteredBlogs')
-      h2(v-rainbow) {{item.title | to-uppercase}}
+      router-link(:to="'/blog/'+item.id")
+        h2(v-rainbow) {{item.title | to-uppercase}}
       article {{item.body | snippet}}
 
 </template>
@@ -73,10 +74,19 @@ export default class ViewComponent extends Vue {
 #show-blogs
   max-width 800px
   margin 0 auto
+  input
+    padding 8px
+    width 100%
+    box-sizing border-box
+  a
+    color #444
+    text-decoration none 
 
-.single-blog
-  padding 20px
-  margin 20px 0
-  box-sizing border-box
-  background #eee
+  .single-blog
+    padding 20px
+    margin 20px 0
+    box-sizing border-box
+    background #eee
+
+
 </style>

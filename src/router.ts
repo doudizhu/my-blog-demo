@@ -29,5 +29,9 @@ export default new Router({
       path: '/add',
       component:()=>import('./components/AddBlog.vue'),
     },
+    {
+      path: '/blog/:id',
+      component:()=>import('./components/SingleBlog.vue'),
+    },
   ]
 })
