@@ -28,6 +28,14 @@ Vue.directive('theme',{
   }
 })
 
+// 自定义过滤器
+Vue.filter('to-uppercase',(value:string)=>{
+  return value.toUpperCase()
+})
+Vue.filter('snippet',(value:string)=>{
+  return value.slice(0,100)+'...'
+})
+
 new Vue({
   router,
   store,

@@ -2,8 +2,8 @@
   #show-blogs(v-theme:column='"narrow"')
     h1 博客总览
     .single-blog(v-for='item in blogs')
-      h2(v-rainbow) {{item.title}}
-      article {{item.body}}
+      h2(v-rainbow) {{item.title | to-uppercase}}
+      article {{item.body | snippet}}
 
 </template>
 
