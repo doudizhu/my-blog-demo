@@ -1,5 +1,7 @@
 <template lang="pug">
   .single-blog
+    button(@click='deleteSingleBlog') 删除
+    router-link(:to='"/edit/"+id') 编辑
     h1 {{blog.title}}
     //- article {{blog.body}}
     article {{blog.content}}
@@ -39,6 +41,14 @@ export default class ViewComponent extends Vue {
       .then((data:any)=>{
         console.log(data)
         this.blog = data
+      })
+  }
+
+  /**method */
+  deleteSingleBlog(){
+    (this.$http as any).delete('https://my-blog-demo-632c9.firebaseio.com/posts/'+this.id+'.json')
+      .then((response:any)=>{
+        this.$router.push({path:'/'})
       })
   }
 }

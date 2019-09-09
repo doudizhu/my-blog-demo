@@ -33,5 +33,9 @@ export default new Router({
       path: '/blog/:id',
       component:()=>import('./components/SingleBlog.vue'),
     },
+    {
+      path: '/edit/:id',
+      component:()=>import('./components/EditBlog.vue'),
+    },
   ]
 })
