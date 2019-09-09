@@ -9,13 +9,13 @@
 
       #checkboxes
         label Vue.js
-        input(type='checkbox' value='Vue.js' v-model='blog.catefories')
+        input(type='checkbox' value='Vue.js' v-model='blog.categories')
         label Node.js
-        input(type='checkbox' value='Node.js' v-model='blog.catefories')
+        input(type='checkbox' value='Node.js' v-model='blog.categories')
         label React.js
-        input(type='checkbox' value='React.js' v-model='blog.catefories')
+        input(type='checkbox' value='React.js' v-model='blog.categories')
         label Angular4
-        input(type='checkbox' value='Angular4' v-model='blog.catefories')
+        input(type='checkbox' value='Angular4' v-model='blog.categories')
       
       label 作者
       select(v-model='blog.author')
@@ -31,7 +31,7 @@
       p {{blog.content}}
       p 博客分类：
       ul
-        li(v-for='item in blog.catefories') {{item}}
+        li(v-for='item in blog.categories') {{item}}
 
     div(v-if='submmited')
       h3 您的博客发布成功！
@@ -47,7 +47,7 @@ export default class ViewComponent extends Vue {
   blog = {
     title:'',
     content:'',
-    catefories: [],
+    categories: [],
     author:'',
   }
   authors = ['Hemiah','Henry','Bucky']
@@ -70,7 +70,7 @@ export default class ViewComponent extends Vue {
   //     this.submmited = true
   //   })
   // }
-  
+
   post(){
     (this.$http as any).post(
       'https://my-blog-demo-632c9.firebaseio.com/posts.json',

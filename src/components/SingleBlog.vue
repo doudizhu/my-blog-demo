@@ -1,7 +1,12 @@
 <template lang="pug">
   .single-blog
     h1 {{blog.title}}
-    article {{blog.body}}
+    //- article {{blog.body}}
+    article {{blog.content}}
+    p 作者；{{blog.author}}
+    p 分类
+    ul
+      li(v-for='item in blog.categories') {{item}}
 </template>
 
 <script lang="ts">
@@ -26,10 +31,14 @@ export default class ViewComponent extends Vue {
   // }
   created(){
     this.id = this.$route.params.id;
-    (this.$http as any).get('https://jsonplaceholder.typicode.com/posts/'+this.id) // ***注意：此处需要翻wall切换
+    (this.$http as any).get('https://my-blog-demo-632c9.firebaseio.com/posts/'+this.id+'.json')
       .then((data:any)=>{
-        // console.log(data)
-        this.blog = data.body
+        // console.log('data.json():',data.json())
+        return data.json()
+      })
+      .then((data:any)=>{
+        console.log(data)
+        this.blog = data
       })
   }
 }

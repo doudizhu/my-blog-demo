@@ -5,7 +5,8 @@
     .single-blog(v-for='item in filteredBlogs')
       router-link(:to="'/blog/'+item.id")
         h2(v-rainbow) {{item.title | to-uppercase}}
-      article {{item.body | snippet}}
+      //- article {{item.body | snippet}}
+      article {{item.content | snippet}}
 
 </template>
 
@@ -31,7 +32,7 @@ import {Component,Vue,} from 'vue-property-decorator'
 })
 export default class ViewComponent extends Vue {
   /**data */
-  blogs = []
+  blogs:any = []
   search = ''
   /**computed */
   get filteredBlogs() {
@@ -58,11 +59,28 @@ export default class ViewComponent extends Vue {
     //     })
     // },5000)
     
-    (this.$http as any).get('./json/posts.json') // ***注意此处是相对于当前的html文件
+    // (this.$http as any).get('./json/posts.json') // ***注意此处是相对于当前的html文件
+    //   .then((data:any)=>{
+    //     // console.log(data)
+    //     this.blogs = data.body.slice(0,10)
+    //     // console.log('this.blogs',this.blogs)
+    //   })
+
+    (this.$http as any).get('https://my-blog-demo-632c9.firebaseio.com/posts.json')
       .then((data:any)=>{
-        // console.log(data)
-        this.blogs = data.body.slice(0,10)
-        // console.log('this.blogs',this.blogs)
+        console.log('data.json():',data.json())
+        return data.json()
+      })
+      .then((data:any)=>{
+        const blogsArray = []
+        for(let key in data){
+          // console.log(key)
+          // console.log(data[key])
+          data[key].id = key
+          blogsArray.push(data[key])
+        }
+        console.log(blogsArray)
+        this.blogs = blogsArray
       })
   }
   /**method */
