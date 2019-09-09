@@ -11,7 +11,22 @@
 <script lang="ts">
 import {Component,Vue,} from 'vue-property-decorator'
 @Component({
-  components:{}
+  components:{},
+  /**filter */
+  filters: {
+    // 'to-uppercase': (value: string) => value.toUpperCase(),
+    // toUppercase: (value: string) => value.toUpperCase(),
+    toUppercase(value: string){ 
+      return value.toUpperCase()
+    },
+  },
+  directives:{
+    rainbow:{
+      bind(el,binding,value){
+        el.style.color = '#'+Math.random().toString(16).slice(2,8)
+      },
+    },
+  }
 })
 export default class ViewComponent extends Vue {
   /**data */

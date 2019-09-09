@@ -8,11 +8,11 @@ Vue.config.productionTip = false
 Vue.use(VueResource)
 
 // 自定义指令
-Vue.directive('rainbow',{
-  bind(el:any,binding:any,vnode:any){
-    el.style.color = '#' + Math.random().toString().slice(2,8);
-  }
-})
+// Vue.directive('rainbow',{
+//   bind(el:any,binding:any,vnode:any){
+//     el.style.color = '#' + Math.random().toString().slice(2,8);
+//   }
+// })
 Vue.directive('theme',{
   bind(el:any,binding:any,vnode:any){
     if(binding.value === 'wide'){
@@ -29,9 +29,9 @@ Vue.directive('theme',{
 })
 
 // 自定义过滤器
-Vue.filter('to-uppercase',(value:string)=>{
-  return value.toUpperCase()
-})
+// Vue.filter('to-uppercase',(value:string)=>{
+//   return value.toUpperCase()
+// })
 Vue.filter('snippet',(value:string)=>{
   return value.slice(0,100)+'...'
 })
