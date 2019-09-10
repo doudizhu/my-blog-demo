@@ -7,6 +7,8 @@
     //- article {{blog.content}}
     div(ref='markdownPreview')
       div(v-html="html")
+    MarkdownEditor(v-model='blog.content' ref='markdownEditor' v-show='false')
+
     p 作者；{{blog.author}}
     p 分类
     ul
@@ -14,9 +16,11 @@
 </template>
 
 <script lang="ts">
+import Editor from 'tui-editor'
+import MarkdownEditor from '@/components/MarkdownEditor/index.vue'
 import {Component,Vue,} from 'vue-property-decorator'
 @Component({
-  components:{}
+  components:{MarkdownEditor}
 })
 export default class ViewComponent extends Vue {
   /**data */
@@ -36,13 +40,26 @@ export default class ViewComponent extends Vue {
         // console.log(data)
         this.blog = data
         console.log('this.html before',this.html)
-        // 方式一（尚存在问题）:直接转译成html：有时转化 会吧折行字符串边，编译到一个标签内
-        import('showdown' as any).then((showdown:any) => { //用了 Dynamic import
-          const converter = new showdown.Converter();//初始化
-          this.html = converter.makeHtml(data.content)//转化
-          console.log('this.html after',this.html)
+        // // 方式一（尚存在问题）:直接使用插件转译成html：有时转化 会吧折行字符串边，编译到一个标签内
+        // import('showdown' as any).then((showdown:any) => { //用了 Dynamic import
+        //   const converter = new showdown.Converter();//初始化
+        //   this.html = converter.makeHtml(data.content)//转化
+        //   console.log('this.html after',this.html)
+        // })
+        // 方式二：引入tui.editor插件getHtml方法，转换html
+        this.$nextTick(() => {
+          const markdownEditor = this.$refs['markdownEditor'] as any;
+          this.html = markdownEditor.getHtml()
+
+          setTimeout(()=>{
+            const markdownPreview = (this.$refs['markdownPreview'] as any)
+            // console.log(`markdownPreview:`,markdownPreview)
+            const video = markdownPreview.querySelector('video')
+            if(video && !video.getAttribute('controls')){
+              video.setAttribute('controls','controls')
+            };
+          },1000)
         })
-        // 方式二（待优化）：引入markdown组件，只是隐藏toolbar,并且置于不可编辑状态
       })
   }
 
