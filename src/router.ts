@@ -37,5 +37,9 @@ export default new Router({
       path: '/edit/:id',
       component:()=>import('./components/EditBlog.vue'),
     },
+    {
+      path: '/markdownDemo',
+      component:()=>import('./components/MarkdownDemo.vue'),
+    },
   ]
 })
