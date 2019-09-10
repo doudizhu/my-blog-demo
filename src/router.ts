@@ -43,11 +43,25 @@ export default new Router({
     },
     {
       path: '/markdown',
-      component: { render (c:any) { return c('router-view') }},
+      // component: { render (c:any) { return c('router-view') }},
+      component:()=>import('./views/markdown/Layout.vue'),
+      redirect:'/markdown/list',
       children:[
         {
-          path: '',
+          path: 'list',
+          component:()=>import('./views/markdown/List.vue'),
+        },
+        {
+          path: 'item/:id',
+          component:()=>import('./views/markdown/Item.vue'),
+        },
+        {
+          path: 'add',
           component:()=>import('./views/markdown/Add.vue'),
+        },
+        {
+          path: 'edit/:id',
+          component:()=>import('./views/markdown/Edit.vue'),
         },
       ]
     },

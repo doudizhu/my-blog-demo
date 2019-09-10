@@ -2,7 +2,7 @@
   #id
     //- AddBlog
     //- ShowBlogs
-    //- BlogHeader
+    BlogHeader
     router-view
 </template>
 

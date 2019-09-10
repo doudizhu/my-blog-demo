@@ -1,6 +1,6 @@
 <template lang='pug'>
   #add-blog
-    h2 添加博客
+    h2 编辑
     form(v-if='!submmited')
       label 博客标题
       input(v-model='blog.title' required)
@@ -22,7 +22,7 @@
       select(v-model='blog.author')
         option(v-for='item in authors') {{item}}
       
-      button(@click.prevent='post') 添加博客
+      button(@click.prevent='put') 添加博客
 
 
     #preview(v-show='submmited')
@@ -30,8 +30,7 @@
       p 博客标题：{{blog.title}}
       p 博客内容：
       //- p {{blog.content}}
-      div(ref='markdownPreview')
-        div(v-html="html")
+      div(v-html="html" ref='markdownPreview')
       p 博客分类：
       ul
         li(v-for='item in blog.categories') {{item}}
@@ -48,6 +47,7 @@ import {Component,Vue,} from 'vue-property-decorator'
 })
 export default class ViewComponent extends Vue {
   /**data */
+  id = ''
   blog = {
     title:'',
     content:'',
@@ -58,14 +58,15 @@ export default class ViewComponent extends Vue {
   submmited = false
   html = ''
 
-  mounted(){
-    console.log(this.$refs['previewMdHtml'])
+  created(){
+    this.id = this.$route.params.id;
+    this.get()
   }
 
   /**method */
-  post(){
-    (this.$http as any).post(
-      'https://my-blog-demo-632c9.firebaseio.com/posts.json',
+  put(){
+    (this.$http as any).put(
+      'https://my-blog-demo-632c9.firebaseio.com/posts/'+this.id+'.json',
       this.blog,
     ).then((data:any)=>{
       this.submmited = true
@@ -82,9 +83,17 @@ export default class ViewComponent extends Vue {
         };
       },1000)
       
-      
       this.submmited = true
     })
+  }
+  get(){
+    (this.$http as any).get('https://my-blog-demo-632c9.firebaseio.com/posts/'+this.id+'.json')
+      .then((data:any)=>{
+        return data.json()
+      })
+      .then((data:any)=>{
+        this.blog = data
+      })
   }
 }
 </script>

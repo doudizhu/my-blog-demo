@@ -140,7 +140,7 @@ export default {
     },
 
     fixedVideoControls(){ // 修复markdown编译为html后，video标签丢失cotrols字段问题
-      const video = this.$refs['mdContainer'].querySelector('video')
+      const video = this.$refs['mdContainer'] && this.$refs['mdContainer'].querySelector('video');
       if(video && !video.getAttribute('controls')){
         video.setAttribute('controls','controls')
       }
