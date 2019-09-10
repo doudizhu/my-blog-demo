@@ -41,5 +41,15 @@ export default new Router({
       path: '/markdownDemo',
       component:()=>import('./components/MarkdownDemo.vue'),
     },
+    {
+      path: '/markdown',
+      component: { render (c:any) { return c('router-view') }},
+      children:[
+        {
+          path: '',
+          component:()=>import('./views/markdown/Add.vue'),
+        },
+      ]
+    },
   ]
 })
