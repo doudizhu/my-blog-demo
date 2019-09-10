@@ -35,9 +35,14 @@ export default class ViewComponent extends Vue {
       .then((data:any)=>{
         // console.log(data)
         this.blog = data
-        
-        this.html = data.content
-        console.log('this.html',this.html)
+        console.log('this.html before',this.html)
+        // 方式一（尚存在问题）:直接转译成html：有时转化 会吧折行字符串边，编译到一个标签内
+        import('showdown' as any).then((showdown:any) => { //用了 Dynamic import
+          const converter = new showdown.Converter();//初始化
+          this.html = converter.makeHtml(data.content)//转化
+          console.log('this.html after',this.html)
+        })
+        // 方式二（待优化）：引入markdown组件，只是隐藏toolbar,并且置于不可编辑状态
       })
   }
 
