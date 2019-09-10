@@ -1,8 +1,30 @@
 <template>
-  <div :id="id" />
+  <div ref='mdContainer' :id="id" />
 </template>
 
 <script>
+/**
+ * 去抖
+ * @param {*} fn // 回调方法
+ * @param {*} delay // 延迟执行时间
+ */
+function debounce (fn, delay=400) {
+  let timer = null;
+
+  return () => {
+    let args = arguments; // 回调方法参数
+    let context = this; // 自身上下文
+
+    if (timer) { // 每次触发后清除时间函数值
+      clearTimeout(timer);
+    }
+    
+    timer = setTimeout(function () {
+      fn.apply(context, args);
+    }, delay);
+  }
+}
+
 // deps for editor
 import 'codemirror/lib/codemirror.css' // codemirror
 import 'tui-editor/dist/tui-editor.css' // editor ui
@@ -48,7 +70,8 @@ export default {
   },
   data() {
     return {
-      editor: null
+      editor: null,
+      debounceFixedVideoControls:()=>{}
     }
   },
   computed: {
@@ -79,6 +102,7 @@ export default {
   },
   mounted() {
     this.initEditor()
+    this.debounceFixedVideoControls = debounce(this.fixedVideoControls,3000)
   },
   destroyed() {
     this.destroyEditor()
@@ -94,6 +118,7 @@ export default {
       }
       this.editor.on('change', () => {
         this.$emit('input', this.editor.getValue())
+        this.debounceFixedVideoControls()
       })
     },
     destroyEditor() {
@@ -112,6 +137,13 @@ export default {
     },
     getHtml() {
       return this.editor.getHtml()
+    },
+
+    fixedVideoControls(){ // 修复markdown编译为html后，video标签丢失cotrols字段问题
+      const video = this.$refs['mdContainer'].querySelector('video')
+      if(video && !video.getAttribute('controls')){
+        video.setAttribute('controls','controls')
+      }
     }
   }
 }
