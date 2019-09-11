@@ -24,6 +24,8 @@
       
       button(@click.prevent='post') 添加博客
 
+    MarkdownMathJax(:mdData='blog.content')
+
 
     #preview(v-show='submmited')
       h3 博客总览
@@ -41,10 +43,11 @@
 </template>
 
 <script lang="ts">
+import MarkdownMathJax from "@/components/MarkdownMathJax.vue";
 import MarkdownEditor from '@/components/MarkdownEditor/index.vue'
 import {Component,Vue,} from 'vue-property-decorator'
 @Component({
-  components:{MarkdownEditor}
+  components:{MarkdownEditor,MarkdownMathJax,}
 })
 export default class ViewComponent extends Vue {
   /**data */
@@ -75,7 +78,7 @@ export default class ViewComponent extends Vue {
 
       setTimeout(()=>{
         const markdownPreview = (this.$refs['markdownPreview'] as any)
-        console.log(`markdownPreview:`,markdownPreview)
+        // console.log(`markdownPreview:`,markdownPreview)
         const video = markdownPreview.querySelector('video')
         if(video && !video.getAttribute('controls')){
           video.setAttribute('controls','controls')

@@ -5,10 +5,10 @@
     h1 {{blog.title}}
     //- article {{blog.body}}
     //- article {{blog.content}}
-    div(ref='markdownPreview')
+    div(ref='markdownPreview' v-show='false')
       div(v-html="html")
     MarkdownEditor(v-model='blog.content' ref='markdownEditor' v-show='false')
-
+    MarkdownMathJax(:mdData='blog.content || ""')
     p 作者；{{blog.author}}
     p 分类
     ul
@@ -16,11 +16,12 @@
 </template>
 
 <script lang="ts">
+import MarkdownMathJax from "@/components/MarkdownMathJax.vue";
 import Editor from 'tui-editor'
 import MarkdownEditor from '@/components/MarkdownEditor/index.vue'
 import {Component,Vue,} from 'vue-property-decorator'
 @Component({
-  components:{MarkdownEditor}
+  components:{MarkdownEditor,MarkdownMathJax}
 })
 export default class ViewComponent extends Vue {
   /**data */

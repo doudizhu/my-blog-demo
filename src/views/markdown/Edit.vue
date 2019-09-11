@@ -23,6 +23,7 @@
         option(v-for='item in authors') {{item}}
       
       button(@click.prevent='put') 添加博客
+    MarkdownMathJax(:mdData='blog.content')
 
 
     #preview(v-show='submmited')
@@ -40,10 +41,11 @@
 </template>
 
 <script lang="ts">
+import MarkdownMathJax from "@/components/MarkdownMathJax.vue";
 import MarkdownEditor from '@/components/MarkdownEditor/index.vue'
 import {Component,Vue,} from 'vue-property-decorator'
 @Component({
-  components:{MarkdownEditor}
+  components:{MarkdownEditor,MarkdownMathJax}
 })
 export default class ViewComponent extends Vue {
   /**data */
