@@ -65,6 +65,10 @@ export default new Router({
           component:()=>import('./views/markdown/Edit.vue'),
         },
       ]
+    },
+    {
+      path: '*',
+      redirect: location.host === "doudizhu.github.io" ? '/dashboard' : '',
     }
   ]
 })
