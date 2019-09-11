@@ -24,6 +24,7 @@ export default new Router({
     {
       path: '/',
       component:()=>import('./components/ShowBlogs.vue'),
+      redirect:location.host === "doudizhu.github.io" ? '/markdown/item/-LoM-3cugw5Jh7wSq5_L' : ''
     },
     {
       path: '/add',
@@ -64,6 +65,6 @@ export default new Router({
           component:()=>import('./views/markdown/Edit.vue'),
         },
       ]
-    },
+    }
   ]
 })
