@@ -4,7 +4,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -24,7 +24,6 @@ export default new Router({
     {
       path: '/',
       component:()=>import('./components/ShowBlogs.vue'),
-      redirect:location.host === "doudizhu.github.io" ? '/markdown/item/-LoM-3cugw5Jh7wSq5_L' : ''
     },
     {
       path: '/add',
@@ -68,7 +67,12 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: location.host === "doudizhu.github.io" ? '/dashboard' : '',
+      redirect:location.host === "doudizhu.github.io" ? '/markdown/item/-LoM-3cugw5Jh7wSq5_L' : ''
     }
   ]
 })
+
+
+
+
+export default router
