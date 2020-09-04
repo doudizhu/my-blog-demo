@@ -10,7 +10,7 @@
     "core-js": "^2.6.5",
     "element-ui": "^2.12.0",
     "markdown-it": "^10.0.0",
-    "showdown": "^1.9.0",
+    "showdown": "^1.9.1",
     "tui-editor": "^1.4.6",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
